@@ -11,10 +11,11 @@ class App {
     $.ajax({
       url: 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages',
       type: 'POST',
+      // dataType: 'jsonp', //TBD
       data: JSON.stringify(message),
       contentType: 'application/json',
       success: function(data) {
-        console.log('chatterbox: Message sent');
+        console.log('chatterbox: Message sent: ' + message.text);
       },
       error: function(data) {
         console.error('chatterbox: Failed to send message', data);
@@ -22,12 +23,12 @@ class App {
     });
   }
 
-  fetch() {
+  fetch(cb) {
     $.ajax({
-      url: undefined, //TBD CHECK HERE, SHOULD POINT TO THIS.SERVER?
+      url: 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages',
       type: 'GET',
       success: function(data) {
-        console.log('chatterbox: Messages fetched');
+        return cb(data);
       },
       error: function(data) {
         console.error('chatterbox: Failed to fetch messages', data);
@@ -45,8 +46,37 @@ class App {
 
   renderRoom(room) {
     $('#roomSelect').append(`<div>${room}</div>`);
+    //TBD needs onclick action to move to room page
   }
 }
 
 let app = new App();
-app.send('hello world');
+
+let renderAllRooms = function(data) {
+  let rooms = {};
+  for (let i = 0; i < data.results.length; i++) {
+    if (data.results[i].roomname) {
+      rooms[data.results[i].roomname] = i;
+    }
+    console.log(rooms);
+  }
+  for (key in rooms) {
+    if (key !== '') {
+      app.renderRoom(key);
+    }
+  }
+};
+
+app.fetch(renderAllRooms);
+
+// renderAllRooms();
+
+// var message = {
+//   username: 'AVH',
+//   text: '<script>console.log("You got XSS by AVH")</script>',
+//   roomname: ''
+// };
+
+//app.send(message);
+
+// console.log(app.fetch());
