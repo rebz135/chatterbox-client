@@ -11,7 +11,6 @@ class App {
     $.ajax({
       url: 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages',
       type: 'POST',
-      // dataType: 'jsonp', //TBD
       data: JSON.stringify(message),
       contentType: 'application/json',
       success: function(data) {
@@ -41,7 +40,11 @@ class App {
   }
 
   renderMessage(message) {
-    $('#chats').append(`<div>${message}</div>`);
+    let div = document.createElement('div');
+    $(div).text(message); //prevent XSS attacks
+    // var div = $('<div>', { val: message });
+    $('#chats').append(div);
+    //`<div>${message}</div>`
   }
 
   renderRoom(room) {
@@ -62,12 +65,28 @@ let renderAllRooms = function(data) {
   }
   for (key in rooms) {
     if (key !== '') {
-      app.renderRoom(key);
+      app.renderRoom(JSON.stringify(JSON.parse(key)));
     }
   }
 };
 
-app.fetch(renderAllRooms);
+let renderAllMessages = function(data) {
+  let message = {};
+  for (let i = 0; i < data.results.length; i++) {
+    if (data.results[i].text) {
+      message[data.results[i].text] = i;
+    }
+    // console.log(message);
+  }
+  for (key in message) {
+    if (key !== '') {
+      //clean key here
+      app.renderMessage(key);
+    }
+  }
+};
+
+app.fetch(renderAllMessages);
 
 // renderAllRooms();
 

@@ -7,7 +7,6 @@ describe('chatterbox', function() {
     it('should have a method called init', function() {
       expect(app.init).to.be.ok;
     });
-
   });
 
   describe('app behavior', function() {
@@ -31,7 +30,10 @@ describe('chatterbox', function() {
         app.send([]);
         expect($.ajax.calledOnce).to.be.true;
         // sinon.spy method `args` comes in the form [function calls][arguments from that call]
-        ajaxOptions = typeof $.ajax.args[0][0] === 'object' ? $.ajax.args[0][0] : $.ajax.args[0][1];
+        ajaxOptions =
+          typeof $.ajax.args[0][0] === 'object'
+            ? $.ajax.args[0][0]
+            : $.ajax.args[0][1];
         expect(ajaxOptions.type).to.equal('POST');
         done();
       });
@@ -44,7 +46,10 @@ describe('chatterbox', function() {
         };
 
         app.send(message);
-        ajaxOptions = typeof $.ajax.args[0][0] === 'object' ? $.ajax.args[0][0] : $.ajax.args[0][1];
+        ajaxOptions =
+          typeof $.ajax.args[0][0] === 'object'
+            ? $.ajax.args[0][0]
+            : $.ajax.args[0][1];
         expect(ajaxOptions.data).to.be.a('string');
         expect(ajaxOptions.contentType).to.equal('application/json');
         done();
@@ -58,12 +63,14 @@ describe('chatterbox', function() {
         };
 
         app.send(message);
-        ajaxOptions = typeof $.ajax.args[0][0] === 'object' ? $.ajax.args[0][0] : $.ajax.args[0][1];
+        ajaxOptions =
+          typeof $.ajax.args[0][0] === 'object'
+            ? $.ajax.args[0][0]
+            : $.ajax.args[0][1];
         var sentMessage = JSON.parse(ajaxOptions.data);
         expect(sentMessage).to.deep.equal(message);
         done();
       });
-
     });
 
     describe('fetching', function() {
@@ -74,11 +81,15 @@ describe('chatterbox', function() {
       it('should submit a GET request via $.ajax', function(done) {
         app.fetch();
         expect($.ajax.calledOnce).to.be.true;
-        ajaxUrl = typeof $.ajax.args[0][0] === 'string' ? $.ajax.args[0][0] : $.ajax.args[0][0].url;
-        expect(ajaxUrl).to.equal(app.server);
+        ajaxUrl =
+          typeof $.ajax.args[0][0] === 'string'
+            ? $.ajax.args[0][0]
+            : $.ajax.args[0][0].url;
+        expect(ajaxUrl).to.equal(
+          'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages'
+        );
         done();
       });
-
     });
 
     describe('chatroom behavior', function() {
@@ -105,7 +116,6 @@ describe('chatterbox', function() {
 
         expect($('#roomSelect').children().length).to.equal(1);
       });
-
     });
 
     describe('events', function() {
@@ -120,7 +130,9 @@ describe('chatterbox', function() {
 
         app.init();
 
-        $('#main').find('.username').trigger('click');
+        $('#main')
+          .find('.username')
+          .trigger('click');
         expect(app.handleUsernameClick.called).to.be.true;
 
         app.handleUsernameClick.restore();
