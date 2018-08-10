@@ -7,7 +7,7 @@ class App {
 
   init() {}
 
-  send() {
+  send(message) {
     $.ajax({
       url: 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages',
       type: 'POST',
@@ -22,13 +22,31 @@ class App {
     });
   }
 
-  fetch() {}
+  fetch() {
+    $.ajax({
+      url: undefined, //TBD CHECK HERE, SHOULD POINT TO THIS.SERVER?
+      type: 'GET',
+      success: function(data) {
+        console.log('chatterbox: Messages fetched');
+      },
+      error: function(data) {
+        console.error('chatterbox: Failed to fetch messages', data);
+      }
+    });
+  }
 
-  clearMessages() {}
+  clearMessages() {
+    $('#chats').empty();
+  }
 
-  renderMessages() {}
+  renderMessage(message) {
+    $('#chats').append(`<div>${message}</div>`);
+  }
 
-  renderRoom() {}
+  renderRoom(room) {
+    $('#roomSelect').append(`<div>${room}</div>`);
+  }
 }
 
 let app = new App();
+app.send('hello world');
