@@ -100,8 +100,8 @@ $(document).ready(() => {
   $('.btn').click(function() {
     let message = {
       username: $('input[name=inputUser]').val(),
-      text: $('input[name=inputRoom]').val(),
-      roomname: $('input[name=inputMessage]').val()
+      text: $('input[name=inputMessage]').val(),
+      roomname: $('input[name=inputRoom]').val()
     };
     app.send(message);
     refreshChatFeed();
