@@ -32,6 +32,15 @@ h2 {
   text-align: left;
 }
 
+h3 {
+  color: pink;
+  margin-top: 0;
+  font-size: 3vmin;
+  margin-bottom: 0px;
+  padding: 0px;
+  text-align: left;
+}
+
 #main h1 span {
   font-style: italic;
 }
@@ -100,16 +109,17 @@ form input[type="text"] {
   background-color: #0090da;
 }
 
-.chatcontainer {
+.chatContainer {
   justify-content: flex-start;
-  padding: 0.25vmin;
   text-align: left;
   background-color: rgba(255, 192, 203, 0.351);
   margin: 1vmin;
   min-height: 3vmin;
+  padding: 0.25vmin;
+  font-size: 1.5vmin;
 }
 
-.chat {
+.chats {
   flex: 1;
   margin: auto;
   color: black;
@@ -128,4 +138,33 @@ form input[type="text"] {
   text-decoration: underline;
   color: navy;
   float: right;
+}
+
+.btn {
+  background-color: black;
+  width: 15vmin;
+  height: 5vmin;
+  font-size: 3vmin;
+  color: pink;
+  border: none;
+}
+
+.input1 {
+  max-width: 50vmin;
+  padding: 5vmin;
+}
+
+.input2 {
+  max-width: 10vmin;
+  padding: 5vmin;
+  height: 0.1vmin;
+}
+
+.hidden {
+  display: none;
+}
+
+.formContainer {
+  padding: 1vmin;
+  color: white;
 }

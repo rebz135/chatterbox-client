@@ -11,14 +11,14 @@
   <script src="bower_components/underscore/underscore.js"></script>
   <script>
     // YOU DO NOT NEED TO EDIT THIS CODE
-    if (!/(&|\?)username=/.test(window.location.search)) {
-      var newSearch = window.location.search;
-      if (newSearch !== '' & newSearch !== '?') {
-        newSearch += '&';
-      }
-      newSearch += 'username=' + (prompt('What is your name?') || 'anonymous');
-      window.location.search = newSearch;
-    }
+    // if (!/(&|\?)username=/.test(window.location.search)) {
+    //   var newSearch = window.location.search;
+    //   if (newSearch !== '' & newSearch !== '?') {
+    //     newSearch += '&';
+    //   }
+    //   newSearch += 'username=' + (prompt('What is your name?') || 'anonymous');
+    //   window.location.search = newSearch;
+    // }
   </script>
   <!-- your scripts -->
   <script src="env/config.js"></script>
@@ -37,6 +37,16 @@
     <b>
       <h2>the feed</h2>
     </b>
+
+    <div class="formContainer">
+      <h3>Send a message!</h3>
+      <br> Username:
+      <input class="input2" name="inputUser"> Room:
+      <input class="input2" name="inputRoom">
+      <br> Message:
+      <input class="input1" name="inputMessage">
+      <button class="btn" name="submit">Submit!</button>
+    </div>
   </div>
 </body>
 
