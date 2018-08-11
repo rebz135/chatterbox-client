@@ -117,6 +117,7 @@ form input[type="text"] {
   min-height: 3vmin;
   padding: 0.25vmin;
   font-size: 1.5vmin;
+  z-index: 0;
 }
 
 .chats {
@@ -138,6 +139,7 @@ form input[type="text"] {
   text-decoration: underline;
   color: navy;
   float: right;
+  z-index: 99;
 }
 
 .btn {

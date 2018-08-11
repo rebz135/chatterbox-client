@@ -22,11 +22,11 @@ class App {
     });
   }
 
-  fetch(cb) {
+  fetch(cb, filter = 'order=-updatedAt') {
     $.ajax({
       url: 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages',
       type: 'GET',
-      data: 'order=-updatedAt',
+      data: filter,
       success: function(data) {
         return cb(data);
       },
@@ -77,6 +77,7 @@ class App {
 
 $(document).ready(() => {
   let app = new App();
+  let refreshing = true;
 
   let renderChatFeed = function(data) {
     for (let i = 0; i < data.results.length; i++) {
@@ -92,7 +93,9 @@ $(document).ready(() => {
     app.fetch(renderChatFeed);
   };
 
-  setInterval(refreshChatFeed, 50000);
+  if (refreshing) {
+    setInterval(refreshChatFeed, 50000);
+  }
 
   $('.btn').click(function() {
     let message = {
@@ -102,6 +105,11 @@ $(document).ready(() => {
     };
     app.send(message);
     refreshChatFeed();
+  });
+
+  //TBD on click a events
+  $('.room').click(function() {
+    alert('hello');
   });
 });
 
