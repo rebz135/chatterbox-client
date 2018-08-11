@@ -37,17 +37,9 @@
     <h2>the feed</h2>
   </b>
 
-  <div class="formContainer">
-    <h3>Send a message!</h3>
-    <br> Username:
-    <input class="input2" name="inputUser"> Room:
-    <input class="input2" name="inputRoom">
-    <br> Message:
-    <input class="input1" name="inputMessage">
-    <button class="submitBtn btn">Submit!</button>
-  </div>
-
+  <br>
   <div class="filterWrapper">
+    <button class="refreshBtn btn">Refresh!</button>
     <div>Currently filtering for</div>
     <div>
       Filter Metric:
@@ -57,19 +49,33 @@
       Filter Value:
       <span class="filterValue"></span>
     </div>
-    <button class="refreshBtn btn">Refresh!</button>
   </div>
-
+  <br>
   <div class="socialWrapper">
-    <div>Currently displaying the feed for</div>
-    <div class=userName>TBD username</div>
     <div>
-      whose friends include:
+      <div>Currently displaying the feed for</div>
+      <div class=userName>TBD username</div>
+    </div>
+    <div>
+      whose friends include
       <span class="friendsList"></span>
     </div>
   </div>
+  <br>
+  <div class="formContainer">
+    <h3>Send a message!</h3>
+    <br> Username:
+    <input class="input2" name="inputUser"> Room:
+    <input class="input2" name="inputRoom">
+    <br> Message:
+    <input class="input1" name="inputMessage">
+    <button class="submitBtn btn">Submit!</button>
+  </div>
+  <br>
 
-  <div>table key titles</div>
+  <div class="key">
+    <br>table key titles</div>
+  <br>
   <div id="chats">
   </div>
 

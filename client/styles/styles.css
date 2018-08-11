@@ -119,7 +119,6 @@ form input[type="text"] {
   z-index: 0;
   display: flex;
   align-items: baseline;
-  align-content: center;
   max-height: 40vmin;
   overflow: hidden;
 }
@@ -177,18 +176,25 @@ form input[type="text"] {
 .formContainer {
   padding: 1vmin;
   color: white;
+  display: inline;
 }
 
 .filterWrapper {
   font-size: 3vmin;
   color: white;
+  display: inline;
 }
 
 .socialWrapper {
   font-size: 3vmin;
-  color: #ffc0cb;
+  color: #ff748c;
+  display: inline;
 }
 
 .friendly {
   background: #ff748c;
+}
+
+.key {
+  color: white;
 }
