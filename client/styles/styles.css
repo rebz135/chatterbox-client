@@ -110,7 +110,6 @@ form input[type="text"] {
 }
 
 .chatContainer {
-  justify-content: flex-start;
   text-align: left;
   background-color: rgba(255, 192, 203, 0.351);
   margin: 1vmin;
@@ -118,26 +117,35 @@ form input[type="text"] {
   padding: 0.25vmin;
   font-size: 1.5vmin;
   z-index: 0;
+  display: flex;
+  align-items: baseline;
+  align-content: center;
+  max-height: 40vmin;
+  overflow: hidden;
 }
 
 .chats {
   flex: 1;
   margin: auto;
-  color: black;
+  color: rgb(34, 34, 34);
+  font-size: 2.5vmin;
+  margin: 1vmin;
+  max-width: 30vmin;
+  overflow-wrap: break-word;
 }
 
 .user {
   flex: 1;
   margin: auto;
   text-decoration: underline;
-  color: navy;
+  color: #ffc0cb;
 }
 
 .room {
   flex: 1;
   margin: auto;
   text-decoration: underline;
-  color: navy;
+  color: #c0fff4;
   float: right;
   z-index: 99;
 }
@@ -169,4 +177,18 @@ form input[type="text"] {
 .formContainer {
   padding: 1vmin;
   color: white;
+}
+
+.filterWrapper {
+  font-size: 3vmin;
+  color: white;
+}
+
+.socialWrapper {
+  font-size: 3vmin;
+  color: #ffc0cb;
+}
+
+.friendly {
+  background: #ff748c;
 }

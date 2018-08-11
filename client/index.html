@@ -33,21 +33,46 @@
     </div> -->
     <!-- Your HTML goes here! -->
   </div>
-  <div id="chats">
-    <b>
-      <h2>the feed</h2>
-    </b>
+  <b>
+    <h2>the feed</h2>
+  </b>
 
-    <div class="formContainer">
-      <h3>Send a message!</h3>
-      <br> Username:
-      <input class="input2" name="inputUser"> Room:
-      <input class="input2" name="inputRoom">
-      <br> Message:
-      <input class="input1" name="inputMessage">
-      <button class="btn" name="submit">Submit!</button>
+  <div class="formContainer">
+    <h3>Send a message!</h3>
+    <br> Username:
+    <input class="input2" name="inputUser"> Room:
+    <input class="input2" name="inputRoom">
+    <br> Message:
+    <input class="input1" name="inputMessage">
+    <button class="submitBtn btn">Submit!</button>
+  </div>
+
+  <div class="filterWrapper">
+    <div>Currently filtering for</div>
+    <div>
+      Filter Metric:
+      <span class="filterMetric"></span>
+    </div>
+    <div>
+      Filter Value:
+      <span class="filterValue"></span>
+    </div>
+    <button class="refreshBtn btn">Refresh!</button>
+  </div>
+
+  <div class="socialWrapper">
+    <div>Currently displaying the feed for</div>
+    <div class=userName>TBD username</div>
+    <div>
+      whose friends include:
+      <span class="friendsList"></span>
     </div>
   </div>
+
+  <div>table key titles</div>
+  <div id="chats">
+  </div>
+
 </body>
 
 </html>

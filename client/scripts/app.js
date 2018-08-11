@@ -2,10 +2,16 @@
 
 class App {
   constructor() {
-    //DO SOMETHING;
+    this.filter = 'order=-updatedAt';
+    this.filterMetric = 'Recent Chats';
+    this.filterVal = 'All';
+    this.user = null;
+    this.friendsList = {};
   }
 
-  init() {}
+  init() {
+    //not needed
+  }
 
   send(message) {
     $.ajax({
@@ -22,11 +28,11 @@ class App {
     });
   }
 
-  fetch(cb, filter = 'order=-updatedAt') {
+  fetch(cb) {
     $.ajax({
       url: 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages',
       type: 'GET',
-      data: filter,
+      data: this.filter,
       success: function(data) {
         return cb(data);
       },
@@ -42,16 +48,20 @@ class App {
 
   renderChat(data) {
     let div = document.createElement('div');
-    let text = document.createElement('a');
-    let author = document.createElement('a');
-    let roomstamp = document.createElement('a');
-    let space = document.createElement('a');
+    let text = document.createElement('div');
+    let author = document.createElement('div');
+    let roomstamp = document.createElement('div');
 
     $(div).append(text);
-    $(div).append(space);
     $(div).append(author);
     $(div).append(roomstamp);
-    $(div).addClass('chatContainer');
+
+    if (this.friendsList.hasOwnProperty(data.username)) {
+      $(div).addClass('chatContainer friendly');
+    } else {
+      $(div).addClass('chatContainer');
+    }
+
     $(text).addClass('chats');
     $(author).addClass('user');
     $(roomstamp).addClass('room');
@@ -70,7 +80,6 @@ class App {
     } else {
       $(roomstamp).text('ROOM NOT FOUND');
     }
-    $(space).text(' - ');
     $('#chats').append(div);
   }
 }
@@ -78,39 +87,83 @@ class App {
 $(document).ready(() => {
   let app = new App();
   let refreshing = true;
+  app.user = 'AVH'; //window.prompt('Welcome to the Chatterbox. What is your name?');
+  $('.userName').text(app.user);
 
   let renderChatFeed = function(data) {
     for (let i = 0; i < data.results.length; i++) {
       app.renderChat(data.results[i]);
+      $('span.filterMetric').text(app.filterMetric);
+      $('span.filterValue').text(app.filterVal);
     }
   };
-
-  //initialize renderings
-  app.fetch(renderChatFeed);
 
   let refreshChatFeed = function() {
     $('.chatContainer').remove();
     app.fetch(renderChatFeed);
   };
 
+  let setListeners = function() {
+    $('.submitBtn').click(function() {
+      let message = {
+        username: $('input[name=inputUser]').val(),
+        text: $('input[name=inputMessage]').val(),
+        roomname: $('input[name=inputRoom]').val()
+      };
+      app.send(message);
+      refreshChatFeed();
+      $('input[name=inputUser]').val(''),
+      $('input[name=inputMessage]').val(''),
+      $('input[name=inputRoom]').val('');
+    });
+
+    $('.refreshBtn').click(function() {
+      app.filter = 'order=-updatedAt';
+      app.filterVal = 'All';
+      app.filterMetric = 'Recent Chats';
+      refreshChatFeed();
+    });
+
+    $('div').on('click', '.room', function() {
+      let roomName = $(event.target).text();
+      //TBD fix hardcoding
+      if (roomName !== 'ROOM NOT FOUND') {
+        app.filter = `where={"roomname":"${$(event.target).text()}"}`;
+        app.filterVal = roomName;
+        app.filterMetric = 'Room';
+        refreshChatFeed();
+      }
+    });
+
+    $('div').on('click', '.user', function() {
+      let friend = $(event.target).text();
+      if (app.friendsList[friend]) {
+        delete app.friendsList[friend];
+      } else {
+        app.friendsList[friend] = true;
+      }
+
+      $('.friendsList').text(Object.keys(app.friendsList).join(', '));
+      console.log(app.friendsList);
+      refreshChatFeed();
+
+      // if (roomName !== 'ROOM NOT FOUND') {
+      //   app.filter = `where={"roomname":"${$(event.target).text()}"}`;
+      //   app.filterVal = roomName;
+      //   app.filterMetric = 'Room';
+      //   refreshChatFeed();
+      // }
+    });
+
+    //TBD click a user to filter for that user similar to rooms
+  };
+
+  //initialize renderings
+  app.fetch(renderChatFeed);
+  setListeners();
   if (refreshing) {
     setInterval(refreshChatFeed, 50000);
   }
-
-  $('.btn').click(function() {
-    let message = {
-      username: $('input[name=inputUser]').val(),
-      text: $('input[name=inputMessage]').val(),
-      roomname: $('input[name=inputRoom]').val()
-    };
-    app.send(message);
-    refreshChatFeed();
-  });
-
-  //TBD on click a events
-  $('.room').click(function() {
-    alert('hello');
-  });
 });
 
 //OBJECT FROM PARSE
@@ -121,7 +174,6 @@ $(document).ready(() => {
 // updatedAt:"2018-08-11T01:55:27.038Z"
 // username:"AVH"
 
-//TODO
-//Enter existing rooms
+//TBD
 //Allow users to befriend other users by clicking on their username
 //Display messages sent by friends in bold
