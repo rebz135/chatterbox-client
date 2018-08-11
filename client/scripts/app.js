@@ -26,6 +26,7 @@ class App {
     $.ajax({
       url: 'http://parse.sfm6.hackreactor.com/chatterbox/classes/messages',
       type: 'GET',
+      data: 'order=-updatedAt',
       success: function(data) {
         return cb(data);
       },
@@ -42,14 +43,48 @@ class App {
   renderMessage(message) {
     let div = document.createElement('div');
     $(div).text(message); //prevent XSS attacks
-    // var div = $('<div>', { val: message });
     $('#chats').append(div);
-    //`<div>${message}</div>`
   }
 
   renderRoom(room) {
-    $('#roomSelect').append(`<div>${room}</div>`);
+    let div = document.createElement('div');
+    $(div).text(room); //prevent XSS attacks
+    $('#roomSelect').append(div);
     //TBD needs onclick action to move to room page
+  }
+
+  renderChat(data) {
+    let div = document.createElement('div');
+    let text = document.createElement('a');
+    let author = document.createElement('a');
+    let roomstamp = document.createElement('a');
+    let space = document.createElement('a');
+
+    $(div).append(text);
+    $(div).append(space);
+    $(div).append(author);
+    $(div).append(roomstamp);
+    $(div).addClass('chatcontainer');
+    $(text).addClass('chats');
+    $(author).addClass('user');
+    $(roomstamp).addClass('room');
+    if (data.text) {
+      $(text).text(data.text); //prevent XSS attacks
+    } else {
+      $(text).text('TEXT NOT FOUND');
+    }
+    if (data.user) {
+      $(author).text(data.user); //prevent XSS attacks
+    } else {
+      $(author).text('AUTHOR NOT FOUND');
+    }
+    if (data.roomname) {
+      $(roomstamp).text(data.roomname); //prevent XSS attacks
+    } else {
+      $(roomstamp).text('ROOM NOT FOUND');
+    }
+    $(space).text(' - ');
+    $('#chats').append(div);
   }
 }
 
@@ -61,11 +96,10 @@ let renderAllRooms = function(data) {
     if (data.results[i].roomname) {
       rooms[data.results[i].roomname] = i;
     }
-    console.log(rooms);
   }
   for (key in rooms) {
     if (key !== '') {
-      app.renderRoom(JSON.stringify(JSON.parse(key)));
+      app.renderRoom(key);
     }
   }
 };
@@ -76,26 +110,39 @@ let renderAllMessages = function(data) {
     if (data.results[i].text) {
       message[data.results[i].text] = i;
     }
-    // console.log(message);
   }
   for (key in message) {
     if (key !== '') {
-      //clean key here
       app.renderMessage(key);
     }
   }
 };
 
-app.fetch(renderAllMessages);
+let renderChatFeed = function(data) {
+  console.log(data);
+  for (let i = 0; i < data.results.length; i++) {
+    app.renderChat(data.results[i]);
+  }
+};
 
-// renderAllRooms();
+//initialize renderings
+app.fetch(renderChatFeed);
+app.fetch(renderAllRooms);
 
-// var message = {
-//   username: 'AVH',
-//   text: '<script>console.log("You got XSS by AVH")</script>',
-//   roomname: ''
-// };
+//jQuery
 
-//app.send(message);
+//TODO
+//Refresh displayed messages
+//Allows users to select username and send messages
+//Create rooms
+//Enter existing rooms
+//Allow users to befriend other users by clicking on their username
+//Display messages sent by friends in bold
 
-// console.log(app.fetch());
+var message = {
+  username: 'AVH',
+  text: 'testing for seeing this message',
+  roomname: 'Main'
+};
+
+app.send(message);

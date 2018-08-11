@@ -1,27 +1,35 @@
 body {
-  background: black;
-  text-align: center;
-  padding: 0 25px;
+  text-align: left;
   font-family: arial, sans-serif;
   color: black;
+  margin: auto;
+  text-overflow: ellipsis;
+  margin-left: 10vmin;
+  margin-right: 10vmin;
+  background: rgb(34, 34, 34);
 }
 
 #main,
 #chats {
-  width: 500px;
+  width: 100%;
   margin: auto;
-  text-align: left;
-  background: white;
-  padding: 50px 60px;
-  border: solid #ddd;
-  border-width: 0 1px 1px 1px;
 }
 
 #main h1 {
   margin-top: 0;
-  font-size: 35px;
+  font-size: 15vmin;
   margin-bottom: 5px;
   padding: 5px;
+  color: pink;
+}
+
+h2 {
+  color: white;
+  margin-top: 0;
+  font-size: 10vmin;
+  margin-bottom: 5px;
+  padding: 5px;
+  text-align: left;
 }
 
 #main h1 span {
@@ -64,7 +72,9 @@ form input[type="text"] {
 .chat {
   padding: 5px;
   margin-bottom: 5px;
-  background-color: peru;
+  background-color: white;
+  text-overflow: ellipsis;
+  width: 10px;
 }
 
 .chat .username {
@@ -88,4 +98,34 @@ form input[type="text"] {
 .friend {
   color: #fff;
   background-color: #0090da;
+}
+
+.chatcontainer {
+  justify-content: flex-start;
+  padding: 0.25vmin;
+  text-align: left;
+  background-color: rgba(255, 192, 203, 0.351);
+  margin: 1vmin;
+  min-height: 3vmin;
+}
+
+.chat {
+  flex: 1;
+  margin: auto;
+  color: black;
+}
+
+.user {
+  flex: 1;
+  margin: auto;
+  text-decoration: underline;
+  color: navy;
+}
+
+.room {
+  flex: 1;
+  margin: auto;
+  text-decoration: underline;
+  color: navy;
+  float: right;
 }
