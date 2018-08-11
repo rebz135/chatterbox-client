@@ -87,7 +87,7 @@ class App {
 $(document).ready(() => {
   let app = new App();
   let refreshing = true;
-  app.user = 'AVH'; //window.prompt('Welcome to the Chatterbox. What is your name?');
+  app.user = window.prompt('Welcome to the Chatterbox. What is your name?');
   $('.userName').text(app.user);
 
   let renderChatFeed = function(data) {

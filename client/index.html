@@ -25,7 +25,7 @@
   <script src="scripts/app.js"></script>
 </head>
 
-<body>
+<>
   <div id="main">
     <h1>the chatterbox</h1>
     <!-- <div id="roomSelect">
@@ -33,52 +33,59 @@
     </div> -->
     <!-- Your HTML goes here! -->
   </div>
-  <b>
-    <h2>the feed</h2>
-  </b>
+
+
 
   <br>
   <div class="filterWrapper">
     <button class="refreshBtn btn">Refresh!</button>
-    <div>Currently filtering for</div>
-    <div>
-      Filter Metric:
-      <span class="filterMetric"></span>
-    </div>
-    <div>
-      Filter Value:
+    <div class="filterElement">
       <span class="filterValue"></span>
+    </div>
+    <div class="filterElement">
+      <span class="filterMetric"></span>
     </div>
   </div>
   <br>
   <div class="socialWrapper">
     <div>
-      <div>Currently displaying the feed for</div>
-      <div class=userName>TBD username</div>
+      <div>Welcome</div>
+      <b>
+        <div class=userName>TBD username</div>
+      </b>
     </div>
     <div>
-      whose friends include
-      <span class="friendsList"></span>
+      Your friends are
+      <span class="friendsList">non-existant</span>
     </div>
   </div>
   <br>
+  <h3>Send a message!</h3>
   <div class="formContainer">
-    <h3>Send a message!</h3>
-    <br> Username:
+    User:
     <input class="input2" name="inputUser"> Room:
-    <input class="input2" name="inputRoom">
-    <br> Message:
+    <input class="input2" name="inputRoom"> Message:
     <input class="input1" name="inputMessage">
     <button class="submitBtn btn">Submit!</button>
   </div>
   <br>
 
-  <div class="key">
-    <br>table key titles</div>
+  <h2>the feed</h2>
+  <div class="keyContainer">
+    <div class="key">
+      Message
+    </div>
+    <div class="key">
+      User
+    </div>
+    <div class="key">
+      Room
+    </div>
+  </div>
   <br>
   <div id="chats">
   </div>
 
-</body>
+  </body>
 
 </html>
